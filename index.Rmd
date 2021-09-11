@@ -1,5 +1,6 @@
 ---
 title: "Leo's R Projects"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
 
@@ -17,9 +18,9 @@ output: html_document
 <div class="row" style="padding-top: 30px;">
 <div class="col-sm-6">
 
-# **Leo**
+# **Welcome!**
 
-This is a template example for lab journaling. Students in Matt Crump's Human Cognition and Performance Lab will use this template to learn R, and other things. Students can replace this text with more fun things. People not in my lab can use this too.
+I've always wanted to create a website portfolio to share my academic and personal projects but the idea of creating a website from scratch was not in my interest until I found github pages. So here we are ... 
 
 ## How to use
 
