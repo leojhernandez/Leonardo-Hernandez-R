@@ -11,7 +11,7 @@
 
 
 
-<title>Journal</title>
+<title>CIS 3155: Regression and Forecasting Models for Business Applications</title>
 
 <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -338,17 +338,66 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Journal</h1>
+<h1 class="title toc-ignore">CIS 3155: Regression and Forecasting Models for Business Applications</h1>
 
 </div>
 
 
-<p>IMPORTANT: You can delete everything in here and start fresh. You might want to start by not deleting anything above this line until you know what that stuff is doing.</p>
-<p>This is an .Rmd file. It is plain text with special features. Any time you write just like this, it will be compiled to normal text in the website. If you put a # in front of your text, it will create a top level-header.</p>
-<div id="my-first-post" class="section level1">
-<h1>My first post</h1>
-<p>2018 | 7 | 23 Last compiled: 2021-09-11</p>
-<p>Notice that whatever you define as a top level header, automatically gets put into the table of contents bar on the left.</p>
+<p>This is a course I took during my time at Baruch College. We will briefly go over correlation, linear regression, residuals, multiple regressions &amp; time series analysis. I will provide examples for each topic with a question(s) and answer(s).</p>
+<div id="chapter-4-correlation-linear-regression" class="section level1">
+<h1>Chapter 4: Correlation &amp; Linear Regression</h1>
+<p>Last compiled: 2021-09-14</p>
+<p>We will begin discussing about correlation. What is correlation? In short, correlation is linear association (relationship) between two quantitative (numerical) variables. It is important to know when we are allowed to use correlation. For this reason, we should really use correlation if we meet these three criterias:</p>
+<ol style="list-style-type: decimal">
+<li>The Quantitative Variable</li>
+<li>The Linear Condition</li>
+<li>Outlier Condition</li>
+</ol>
+<p>How do we check the conditions? Simple, make a scatter plot!</p>
+<p>I will begin by importing some data from the Numbeo website. More information will be provided later.</p>
+<pre class="r"><code># import data 
+cost &lt;- read.table( &#39;Cost_of_Living_2013.txt&#39;, sep=&#39;\t&#39;, header=TRUE) </code></pre>
+<p>After we dump the dataset in R, it is a good to get familiar with the columns you’re dealing with. We can quickly glance at the data by reading the first rows.</p>
+<pre class="r"><code># analyze a few observations 
+head(cost)    # read first 6 rows</code></pre>
+<pre><code>##                  City Cost.of.Living.Index Rent.Index Groceries.Index
+## 1   Stavanger, Norway               175.51      84.24          161.61
+## 2   Trondheim, Norway               174.38      63.71          151.56
+## 3        Oslo, Norway               161.84      72.96          150.99
+## 4 Zurich, Switzerland               159.91      77.03          167.36
+## 5      Bergen, Norway               156.54      59.20          145.49
+## 6 Geneva, Switzerland               151.10      96.81          152.58
+##   Restaurant.Price.Index Local.Purchasing.Power.Index
+## 1                 198.24                        86.42
+## 2                 185.35                        93.89
+## 3                 176.62                        95.51
+## 4                 150.42                       145.55
+## 5                 167.02                       105.33
+## 6                 149.08                       110.94</code></pre>
+<p>If we want to dive deeper into the dataset, we can call these functions to learn more.</p>
+<pre class="r"><code># Let&#39;s learn more about the data model
+str(cost)     # structure of an r object</code></pre>
+<pre><code>## &#39;data.frame&#39;:    322 obs. of  6 variables:
+##  $ City                        : chr  &quot;Stavanger, Norway&quot; &quot;Trondheim, Norway&quot; &quot;Oslo, Norway&quot; &quot;Zurich, Switzerland&quot; ...
+##  $ Cost.of.Living.Index        : num  176 174 162 160 157 ...
+##  $ Rent.Index                  : num  84.2 63.7 73 77 59.2 ...
+##  $ Groceries.Index             : num  162 152 151 167 145 ...
+##  $ Restaurant.Price.Index      : num  198 185 177 150 167 ...
+##  $ Local.Purchasing.Power.Index: num  86.4 93.9 95.5 145.6 105.3 ...</code></pre>
+<pre class="r"><code>dim(cost)     # cols and rows similar to shape in python</code></pre>
+<pre><code>## [1] 322   6</code></pre>
+<pre class="r"><code>typeof(cost)  # type of dataset </code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<pre class="r"><code>names(cost)   # brings all variables/column names</code></pre>
+<pre><code>## [1] &quot;City&quot;                         &quot;Cost.of.Living.Index&quot;        
+## [3] &quot;Rent.Index&quot;                   &quot;Groceries.Index&quot;             
+## [5] &quot;Restaurant.Price.Index&quot;       &quot;Local.Purchasing.Power.Index&quot;</code></pre>
+<p>We can safely say that we are working with a list made of 322 rows and 6 variables. We have 5 numerical variables and one character (string) variable. Our dataset is relative small.</p>
+<p>Now, we are asked to create a scatter plot between the Cost.of.Living.Index variable against all the variables. What I’d like to do is create a scatter plot of the entire dataframe.</p>
+<pre class="r"><code># This is a great to visualize relationships when working with less than 6 variables.
+# We are excluding the City variable since a character type and won&#39;t have correlation.
+pairs(cost[,2:6], main=&quot;Are there any weak or strong relationships?&quot;, pch=16, cex=.5)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <div id="second-level-header" class="section level2">
 <h2>Second level header</h2>
 <p>You can add more headers by adding more hashtags. These won’t be put into the table of contents</p>
@@ -360,7 +409,7 @@ div.tocify {
 </div>
 <div id="my-second-post-note-the-order" class="section level1">
 <h1>My second post (note the order)</h1>
-<p>2018 | 7 | 23 Last compiled: 2021-09-11</p>
+<p>2018 | 7 | 23 Last compiled: 2021-09-14</p>
 <p>I’m writing this tutorial going from the top down. And, this is how it will be printed. So, notice the second post is second in the list. If you want your most recent post to be at the top, then make a new post starting at the top. If you want the oldest first, do, then keep adding to the bottom</p>
 </div>
 <div id="adding-r-stuff" class="section level1">
@@ -369,7 +418,7 @@ div.tocify {
 <p>So, let’s say you are learning how to make a histogram in R. For example, maybe you want to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then you want to plot a histogram. You can do this right here by using an r code block, like this:</p>
 <pre class="r"><code>samples &lt;- rnorm(100, mean=0, sd=1)
 hist(samples)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="Journal_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>When you knit this R Markdown document, you will see that the histogram is printed to the page, along with the R code. This document can be set up to hide the R code in the webpage, just delete the comment (hashtag), from the cold folding option in the yaml header up top. For purposes of letting yourself see the code, and me see the code, best to keep it the way that it is. You learn all of these things and more can be customized in each R code block.</p>
 </div>
 <div id="the-big-idea" class="section level1">
@@ -423,12 +472,12 @@ for (i in 1:100){
 }
 
 print(a)</code></pre>
-<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
-##  [18]  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34
-##  [35]  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51
-##  [52]  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68
-##  [69]  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85
-##  [86]  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100</code></pre>
+<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+##  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+##  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
+##  [91]  91  92  93  94  95  96  97  98  99 100</code></pre>
 <pre class="r"><code># for loop solution #2
 
 a&lt;-c() #create empty variable using combine command
@@ -436,21 +485,21 @@ for (i in 1:100){
   a&lt;-c(a,i) # keeps combining a with itself and the new number in i
 }
 print(a)</code></pre>
-<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
-##  [18]  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34
-##  [35]  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51
-##  [52]  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68
-##  [69]  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85
-##  [86]  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100</code></pre>
+<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+##  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+##  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
+##  [91]  91  92  93  94  95  96  97  98  99 100</code></pre>
 <pre class="r"><code># seq solution
 a &lt;- seq(1,100,1) # look up help for seq using ?seq() in console
 print(a)</code></pre>
-<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
-##  [18]  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34
-##  [35]  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51
-##  [52]  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68
-##  [69]  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85
-##  [86]  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100</code></pre>
+<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+##  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+##  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
+##  [91]  91  92  93  94  95  96  97  98  99 100</code></pre>
 </div>
 <div id="replace-this-with-problem-4" class="section level1">
 <h1>Replace this with problem 4</h1>

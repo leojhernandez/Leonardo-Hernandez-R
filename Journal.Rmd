@@ -1,5 +1,5 @@
 ---
-title: "Journal"
+title: "CIS 3155: Regression and Forecasting Models for Business Applications"
 output:
   html_document:
     toc: true
@@ -14,16 +14,58 @@ output:
 knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 ```
 
-IMPORTANT: You can delete everything in here and start fresh. You might want to start by not deleting anything above this line until you know what that stuff is doing.
+This is a course I took during my time at Baruch College. We will briefly go over correlation, linear regression, residuals, multiple regressions & time series analysis. I will provide examples for each topic with a question(s) and answer(s). 
+
+# Chapter 4: Correlation & Linear Regression
+Last compiled: `r Sys.Date()`
+
+We will begin discussing about correlation. 
+What is correlation? In short, correlation is linear association (relationship) between two quantitative (numerical) variables. It is important to know when we are allowed to use correlation. For this reason, we should really use correlation if we meet these three criterias:
+
+1. The Quantitative Variable
+2. The Linear Condition 
+3. Outlier Condition
+
+How do we check the conditions? Simple, make a scatter plot!
+
+I will begin by importing some data from the Numbeo website. More information will be provided later.
+
+```{r}
+# import data 
+cost <- read.table( 'Cost_of_Living_2013.txt', sep='\t', header=TRUE) 
+```
+
+After we dump the dataset in R, it is a good to get familiar with the columns you're dealing with.
+We can quickly glance at the data by reading the first rows.
+```{r}
+# analyze a few observations 
+head(cost)    # read first 6 rows
+```
+
+If we want to dive deeper into the dataset, we can call these functions to learn more.
+
+```{r}
+# Let's learn more about the data model
+str(cost)     # structure of an r object
+dim(cost)     # cols and rows similar to shape in python
+typeof(cost)  # type of dataset 
+names(cost)   # brings all variables/column names
+```
+
+We can safely say that we are working with a list made of 322 rows and 6 variables.
+We have 5 numerical variables and one character (string) variable. Our dataset is relative small.
+
+Now, we are asked to create a scatter plot between the Cost.of.Living.Index variable against all the variables. 
+What I'd like to do is create a scatter plot of the entire dataframe.
+
+```{r}
+# This is a great to visualize relationships when working with less than 6 variables.
+# We are excluding the City variable since a character type and won't have correlation.
+pairs(cost[,2:6], main="Are there any weak or strong relationships?", pch=16, cex=.5)
+```
 
 
-This is an .Rmd file. It is plain text with special features. Any time you write just like this, it will be compiled to normal text in the website. If you put a \# in front of your text, it will create a top level-header.
 
-# My first post
-
-2018 | 7 | 23 Last compiled: `r Sys.Date()`
-
-Notice that whatever you define as a top level header, automatically gets put into the table of contents bar on the left. 
 
 ## Second level header
 

@@ -22,7 +22,10 @@ output: html_document
 
 I've always wanted to create a website portfolio to share my academic and personal projects but the idea of creating a website from scratch was not in my interest until I found github pages. So here we are ... 
 
-## How to use
+## How did it get started?
+
+
+
 
 1. fork the repo for this website and follow instructions on read me to get set up. [https://github.com/CrumpLab/LabJournalWebsite](https://github.com/CrumpLab/LabJournalWebsite)
 
